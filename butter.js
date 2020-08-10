@@ -2,10 +2,21 @@
 
 var Butter = function() {
 
+    var self = this;
+
     this.defaults = {
         wrapperId: 'butter',
         wrapperDamper: 0.08,
         cancelOnTouch: false
+    }
+    
+    this.validateOptions = function(ops) {
+        for (var prop in ops) {
+            if (self.defaults.hasOwnProperty(prop)) {
+                Object.defineProperty(self.defaults, prop, {value: Object.getOwnPropertyDescriptor(ops, prop).value})
+                console.log(prop + ', ' + Object.getOwnPropertyDescriptor(self.defaults, prop).value);
+            }
+        }
     }
 
     this.wrapperDamper;
@@ -19,12 +30,17 @@ var Butter = function() {
 };
 
 Butter.prototype = {
-    init: function(wrapperDamper, wrapperId, cancelOnTouch) {
+
+    init: function(options) {
+        if (options) {
+            this.validateOptions(options);
+        }
+
         this.active = true;
         this.resizing = false;
-        this.wrapperDamper = wrapperDamper || this.defaults.wrapperDamper;
-        this.wrapperId = wrapperId || this.defaults.wrapperId;
-        this.cancelOnTouch = cancelOnTouch || this.defaults.cancelOnTouch;
+        this.wrapperDamper = this.defaults.wrapperDamper;
+        this.wrapperId = this.defaults.wrapperId;
+        this.cancelOnTouch = this.defaults.cancelOnTouch;
 
         this.wrapper = document.getElementById(this.wrapperId);
         this.wrapper.style.position = 'fixed';
