@@ -1,24 +1,30 @@
 // butter.js
 
-var Butter = function(wrapperDamper, wrapperId) {
+var Butter = function() {
 
-    var defaults = {
+    this.defaults = {
         wrapperId: 'butter',
         wrapperDamper: 0.08,
+        cancelOnTouch: false
     }
 
-    this.wrapperDamper = wrapperDamper || defaults.wrapperDamper;
-    this.wrapperId = wrapperId || defaults.wrapperId;
-
+    this.wrapperDamper;
+    this.wrapperId;
+    this.cancelOnTouch;
     this.wrapper;
     this.wrapperOffset = 0;
     this.animateId;
     this.resizing = false;
-    
+    this.active = false;
 };
 
 Butter.prototype = {
-    init: function() {
+    init: function(wrapperDamper, wrapperId, cancelOnTouch) {
+        this.active = true;
+        this.wrapperDamper = wrapperDamper || this.defaults.wrapperDamper;
+        this.wrapperId = wrapperId || this.defaults.wrapperId;
+        this.cancelOnTouch = cancelOnTouch || this.defaults.cancelOnTouch;
+
         this.wrapper = document.getElementById(this.wrapperId);
         this.wrapper.style.position = 'fixed';
         this.wrapper.style.width = '100%';
@@ -26,6 +32,9 @@ Butter.prototype = {
         document.body.style.height = this.wrapper.clientHeight + 'px';
 
         window.addEventListener('resize', this.resize.bind(this));
+        if (this.cancelOnTouch) {
+            window.addEventListener('touchstart', this.cancel.bind(this));
+        }
         this.wrapperOffset = window.scrollY;
         this.animateId = window.requestAnimationFrame(this.animate.bind(this));
     },
@@ -38,16 +47,18 @@ Butter.prototype = {
 
     resize: function() {
         var self = this;
-        if (!self.resizing) {
-            self.resizing = true;
-            cancelAnimationFrame(self.animateId);
-            window.setTimeout(function() {
-                if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
-                    document.body.style.height = self.wrapper.clientHeight + 'px';
-                }
-                animateId = window.requestAnimationFrame(self.animate.bind(self));
-                self.resizing = false;
-            }, 150)
+        if (this.active) {
+            if (!self.resizing) {
+                self.resizing = true;
+                cancelAnimationFrame(self.animateId);
+                window.setTimeout(function() {
+                    if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
+                        document.body.style.height = self.wrapper.clientHeight + 'px';
+                    }
+                    animateId = window.requestAnimationFrame(self.animate.bind(self));
+                    self.resizing = false;
+                }, 150)
+            }
         }
     },
 
@@ -57,16 +68,21 @@ Butter.prototype = {
     },
 
     cancel: function() {
-        cancelAnimationFrame(this.animateId);
-        window.removeEventListener('resize', this.resize.bind(this));
-        this.wrapper.removeAttribute('style');
-        document.body.removeAttribute('style');
+        if (this.active) {
+            cancelAnimationFrame(this.animateId);
 
-        this.wrapper = "";
-        this.wrapperOffset = 0;
-        this.resizing = true;
-        this.animateId = "";
-    }
+            window.removeEventListener('resize', this.resize);
+            window.removeEventListener('touchstart', this.cancel);
+            this.wrapper.removeAttribute('style');
+            document.body.removeAttribute('style');
+
+            this.active = false;
+            this.wrapper = "";
+            this.wrapperOffset = 0;
+            this.resizing = true;
+            this.animateId = "";
+        }
+    },
 }
 
 var butter = new Butter();
