@@ -21,6 +21,7 @@ var Butter = function() {
 Butter.prototype = {
     init: function(wrapperDamper, wrapperId, cancelOnTouch) {
         this.active = true;
+        this.resizing = false;
         this.wrapperDamper = wrapperDamper || this.defaults.wrapperDamper;
         this.wrapperId = wrapperId || this.defaults.wrapperId;
         this.cancelOnTouch = cancelOnTouch || this.defaults.cancelOnTouch;
@@ -47,18 +48,17 @@ Butter.prototype = {
 
     resize: function() {
         var self = this;
-        if (this.active) {
-            if (!self.resizing) {
-                self.resizing = true;
-                cancelAnimationFrame(self.animateId);
-                window.setTimeout(function() {
-                    if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
-                        document.body.style.height = self.wrapper.clientHeight + 'px';
-                    }
-                    animateId = window.requestAnimationFrame(self.animate.bind(self));
-                    self.resizing = false;
-                }, 150)
-            }
+        if (!self.resizing) {
+            console.log('resize called');
+            self.resizing = true;
+            cancelAnimationFrame(self.animateId);
+            window.setTimeout(function() {
+                if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
+                    document.body.style.height = self.wrapper.clientHeight + 'px';
+                }
+                animateId = window.requestAnimationFrame(self.animate.bind(self));
+                self.resizing = false;
+            }, 150)
         }
     },
 
