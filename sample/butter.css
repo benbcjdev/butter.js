@@ -1,0 +1,25 @@
+/* butter.css */
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    margin: 0;
+}
+.test-div {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+}
+.black-div {
+    background-color: #000000;
+}
+.test-heading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+.white-heading {
+    color: #ffffff;
+}
