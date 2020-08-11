@@ -62,6 +62,7 @@ It is recommended to set cancelOnTouch to true to avoid scrolljacking on mobile 
   };
   butter.init(options);
 </script>
+```
 
 ## License
 Free and Open Source under the MIT License.
