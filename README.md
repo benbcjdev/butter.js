@@ -50,7 +50,7 @@ Call butter.cancel() to restore page to default settings:
 | wrapperDamper | 0.07       | Changes speed of scroll (increase to speed scroll up)  |
 | cancelOnTouch | false      | If true, calls butter.cancel() when touch event occurs |
 
-It is recommended to set cancelOnTouch to true to avoid scrolljacking on mobile devices since they intrinsically support momentum scrolling.
+#### NOTE: It is recommended to set cancelOnTouch to true to avoid scrolljacking on mobile devices since they intrinsically support momentum scrolling.
 
 ```HTML
 <script>
