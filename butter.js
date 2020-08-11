@@ -65,7 +65,6 @@
         resize: function() {
             var self = this;
             if (!self.resizing) {
-                console.log('resize called');
                 self.resizing = true;
                 cancelAnimationFrame(self.animateId);
                 window.setTimeout(function() {
@@ -102,5 +101,5 @@
     };
 
     root.butter = new Butter();
-    
+
 })(this);
