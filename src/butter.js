@@ -71,7 +71,7 @@
                     if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
                         document.body.style.height = self.wrapper.clientHeight + 'px';
                     }
-                    animateId = window.requestAnimationFrame(self.animate.bind(self));
+                    self.animateId = window.requestAnimationFrame(self.animate.bind(self));
                     self.resizing = false;
                 }, 150)
             }
