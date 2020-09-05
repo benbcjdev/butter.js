@@ -54,6 +54,8 @@
             }
             this.wrapperOffset = window.scrollY;
             this.animateId = window.requestAnimationFrame(this.animate.bind(this));
+
+            window.addEventListener('load', this.resize.bind(this));
         },
 
         wrapperUpdate: function() {

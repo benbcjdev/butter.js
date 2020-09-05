@@ -6,7 +6,7 @@ Momentum Scrolling Javascript Library
 Written by: BCJ Development
 
 ## Demo
-ADD WEBSITE LINK
+https://bcjdevelopment.github.io/butter.js/
 
 ## About
 This javascript library is largely based on the "Luxy.js" library written by Mineo Okuda: https://github.com/min30327/luxy.js
