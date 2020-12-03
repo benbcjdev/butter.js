@@ -27,6 +27,8 @@
         this.animateId;
         this.resizing = false;
         this.active = false;
+        this.wrapperHeight;
+        this.bodyHeight;
     };
 
     Butter.prototype = {
@@ -46,7 +48,8 @@
             this.wrapper.style.position = 'fixed';
             this.wrapper.style.width = '100%';
 
-            document.body.style.height = this.wrapper.clientHeight + 'px';
+            this.wrapperHeight = this.wrapper.clientHeight;
+            document.body.style.height = this.wrapperHeight + 'px';
 
             window.addEventListener('resize', this.resize.bind(this));
             if (this.cancelOnTouch) {
@@ -55,7 +58,7 @@
             this.wrapperOffset = window.scrollY;
             this.animateId = window.requestAnimationFrame(this.animate.bind(this));
 
-            window.addEventListener('load', this.resize.bind(this));
+            // window.addEventListener('load', this.resize.bind(this));
         },
 
         wrapperUpdate: function() {
@@ -64,14 +67,21 @@
             this.wrapper.style.transform = 'translate3d(0,' + (-this.wrapperOffset.toFixed(2)) + 'px, 0)';
         },
 
+        checkResize: function() {
+            if (this.wrapperHeight != this.wrapper.clientHeight) {
+                this.resize();
+            }
+        },
+
         resize: function() {
             var self = this;
             if (!self.resizing) {
                 self.resizing = true;
                 cancelAnimationFrame(self.animateId);
                 window.setTimeout(function() {
-                    if (parseInt(document.body.style.height) != parseInt(self.wrapper.clientHeight)) {
-                        document.body.style.height = self.wrapper.clientHeight + 'px';
+                    self.wrapperHeight = self.wrapper.clientHeight;
+                    if (parseInt(document.body.style.height) != parseInt(self.wrapperHeight)) {
+                        document.body.style.height = self.wrapperHeight + 'px';
                     }
                     self.animateId = window.requestAnimationFrame(self.animate.bind(self));
                     self.resizing = false;
@@ -80,6 +90,7 @@
         },
 
         animate: function() {
+            this.checkResize();
             this.wrapperUpdate();
             this.animateId = requestAnimationFrame(this.animate.bind(this));
         },
