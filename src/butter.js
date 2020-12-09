@@ -55,14 +55,14 @@
             if (this.cancelOnTouch) {
                 window.addEventListener('touchstart', this.cancel.bind(this));
             }
-            this.wrapperOffset = window.scrollY;
+            this.wrapperOffset = document.documentElement.scrollTop || window.scrollY || 0.0;
             this.animateId = window.requestAnimationFrame(this.animate.bind(this));
 
             // window.addEventListener('load', this.resize.bind(this));
         },
 
         wrapperUpdate: function() {
-            var scrollY = document.body.scrollTop || window.scrollY;
+            var scrollY = document.documentElement.scrollTop || window.scrollY;
             this.wrapperOffset += (scrollY - this.wrapperOffset) * this.wrapperDamper;
             this.wrapper.style.transform = 'translate3d(0,' + (-this.wrapperOffset.toFixed(2)) + 'px, 0)';
         },
@@ -77,7 +77,7 @@
             var self = this;
             if (!self.resizing) {
                 self.resizing = true;
-                cancelAnimationFrame(self.animateId);
+                window.cancelAnimationFrame(self.animateId);
                 window.setTimeout(function() {
                     self.wrapperHeight = self.wrapper.clientHeight;
                     if (parseInt(document.body.style.height) != parseInt(self.wrapperHeight)) {
@@ -92,12 +92,12 @@
         animate: function() {
             this.checkResize();
             this.wrapperUpdate();
-            this.animateId = requestAnimationFrame(this.animate.bind(this));
+            this.animateId = window.requestAnimationFrame(this.animate.bind(this));
         },
 
         cancel: function() {
             if (this.active) {
-                cancelAnimationFrame(this.animateId);
+                window.cancelAnimationFrame(this.animateId);
 
                 window.removeEventListener('resize', this.resize);
                 window.removeEventListener('touchstart', this.cancel);
