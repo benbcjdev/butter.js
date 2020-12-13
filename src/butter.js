@@ -55,14 +55,14 @@
             if (this.cancelOnTouch) {
                 window.addEventListener('touchstart', this.cancel.bind(this));
             }
-            this.wrapperOffset = document.documentElement.scrollTop || window.scrollY || 0.0;
+            this.wrapperOffset = 0.0;
             this.animateId = window.requestAnimationFrame(this.animate.bind(this));
 
             // window.addEventListener('load', this.resize.bind(this));
         },
 
         wrapperUpdate: function() {
-            var scrollY = document.documentElement.scrollTop || window.scrollY;
+            var scrollY = (document.scrollingElement != undefined) ? document.scrollingElement.scrollTop : (document.documentElement.scrollTop || window.scrollY || 0.0);
             this.wrapperOffset += (scrollY - this.wrapperOffset) * this.wrapperDamper;
             this.wrapper.style.transform = 'translate3d(0,' + (-this.wrapperOffset.toFixed(2)) + 'px, 0)';
         },
