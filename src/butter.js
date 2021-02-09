@@ -1,7 +1,5 @@
 // butter.js
 
-var scrollY = undefined;
-
 (function(root){
     var Butter = function() {
 
@@ -41,20 +39,14 @@ var scrollY = undefined;
                 this.validateOptions(options);
             }
 
-
             this.active = true;
-
             this.resizing = false;
             this.wrapperDamper = this.defaults.wrapperDamper;
             this.wrapperId = this.defaults.wrapperId;
             this.cancelOnTouch = this.defaults.cancelOnTouch;
-
             this.wrapper = document.getElementById(this.wrapperId);
-
             this.wrapper.style.position = 'fixed';
-
             this.wrapper.style.width = '100%';
-
             this.wrapperHeight = this.wrapper.clientHeight;
             document.body.style.height = this.wrapperHeight + 'px';
 
@@ -67,8 +59,7 @@ var scrollY = undefined;
         },
 
         wrapperUpdate: function() {
-            scrollY = (document.scrollingElement != undefined) ? document.scrollingElement.scrollTop : (document.documentElement.scrollTop || 0.0);
-
+            var scrollY = (document.scrollingElement != undefined) ? document.scrollingElement.scrollTop : (document.documentElement.scrollTop || 0.0);
             if (this.check == true){
                 this.wrapperOffset = scrollY;
                 this.check = false;
@@ -78,7 +69,6 @@ var scrollY = undefined;
             if (this.active == true){
                 this.wrapper.style.transform = 'translate(0,' + (-this.wrapperOffset.toFixed(2)) + 'px)';
             };
-
         },
 
         checkResize: function() {
