@@ -1,5 +1,7 @@
 // butter.js
 
+var scrollY = undefined;
+
 (function(root){
     var Butter = function() {
 
@@ -10,7 +12,7 @@
             wrapperDamper: 0.07,
             cancelOnTouch: false
         }
-        
+
         this.validateOptions = function(ops) {
             for (var prop in ops) {
                 if (self.defaults.hasOwnProperty(prop)) {
@@ -29,6 +31,7 @@
         this.active = false;
         this.wrapperHeight;
         this.bodyHeight;
+        this.check = false;
     };
 
     Butter.prototype = {
@@ -38,14 +41,18 @@
                 this.validateOptions(options);
             }
 
+
             this.active = true;
+
             this.resizing = false;
             this.wrapperDamper = this.defaults.wrapperDamper;
             this.wrapperId = this.defaults.wrapperId;
             this.cancelOnTouch = this.defaults.cancelOnTouch;
 
             this.wrapper = document.getElementById(this.wrapperId);
+
             this.wrapper.style.position = 'fixed';
+
             this.wrapper.style.width = '100%';
 
             this.wrapperHeight = this.wrapper.clientHeight;
@@ -57,14 +64,21 @@
             }
             this.wrapperOffset = 0.0;
             this.animateId = window.requestAnimationFrame(this.animate.bind(this));
-
-            // window.addEventListener('load', this.resize.bind(this));
         },
 
         wrapperUpdate: function() {
-            var scrollY = (document.scrollingElement != undefined) ? document.scrollingElement.scrollTop : (document.documentElement.scrollTop || 0.0);
+            scrollY = (document.scrollingElement != undefined) ? document.scrollingElement.scrollTop : (document.documentElement.scrollTop || 0.0);
+
+            if (this.check == true){
+                this.wrapperOffset = scrollY;
+                this.check = false;
+            };
             this.wrapperOffset += (scrollY - this.wrapperOffset) * this.wrapperDamper;
-            this.wrapper.style.transform = 'translate3d(0,' + (-this.wrapperOffset.toFixed(2)) + 'px, 0)';
+
+            if (this.active == true){
+                this.wrapper.style.transform = 'translate(0,' + (-this.wrapperOffset.toFixed(2)) + 'px)';
+            };
+
         },
 
         checkResize: function() {
@@ -109,6 +123,17 @@
                 this.wrapperOffset = 0;
                 this.resizing = true;
                 this.animateId = "";
+            }
+        },
+        pause: function() {
+            if (this.active) {
+                window.cancelAnimationFrame(this.animateId);
+                this.active = false;
+                this.wrapperOffset = 0;
+                this.resizing = true;
+                this.wrapper.style.position = 'relative';
+                this.wrapper.style.transform = 'translate(0px, 0px)';
+                this.check = true;
             }
         },
     };
