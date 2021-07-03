@@ -1,6 +1,10 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
 // butter.js
 
-export function Butter() {
+function Butter() {
 
     var self = this;
 
@@ -8,15 +12,15 @@ export function Butter() {
         wrapperId: 'butter',
         wrapperDamper: 0.07,
         cancelOnTouch: false
-    }
+    };
 
     this.validateOptions = function (ops) {
         for (var prop in ops) {
             if (self.defaults.hasOwnProperty(prop)) {
-                Object.defineProperty(self.defaults, prop, { value: Object.getOwnPropertyDescriptor(ops, prop).value })
+                Object.defineProperty(self.defaults, prop, { value: Object.getOwnPropertyDescriptor(ops, prop).value });
             }
         }
-    }
+    };
 
     this.wrapperDamper;
     this.wrapperId;
@@ -28,8 +32,7 @@ export function Butter() {
     this.active = false;
     this.wrapperHeight;
     this.bodyHeight;
-};
-
+}
 Butter.prototype = {
 
     init: function (options) {
@@ -84,7 +87,7 @@ Butter.prototype = {
                 }
                 self.animateId = window.requestAnimationFrame(self.animate.bind(self));
                 self.resizing = false;
-            }, 150)
+            }, 150);
         }
     },
 
@@ -111,3 +114,5 @@ Butter.prototype = {
         }
     },
 };
+
+exports.Butter = Butter;
