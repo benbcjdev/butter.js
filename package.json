@@ -5,7 +5,10 @@
   "main": "butter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "npm:local": "verdaccio",
+    "npm:login": "npm adduser --registry http://localhost:4873/",
+    "publish:local": "cd dist && npm publish --registry http://localhost:4873/"
   },
   "repository": {
     "type": "git",
