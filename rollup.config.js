@@ -1,11 +1,18 @@
 import { terser } from "rollup-plugin-terser";
+import copy from 'rollup-plugin-copy'
 
 export default {
     input: 'src/butter.js',
     output: [
-        { file: "dist/butter.js", format: "cjs" },
-        { file: "dist/butter.min.js", format: "cjs", plugins: [terser()] },
-        { file: "dist/butter.esm.js", format: "esm" },
+        { file: "dist/src/butter.js", format: "cjs" },
+        { file: "dist/src/butter.min.js", format: "cjs", plugins: [terser()] },
+        { file: "dist/src/butter.esm.js", format: "esm" },
     ],
-    plugins: [terser()]
+    plugins: [
+        copy({
+            targets: [
+              { src: 'README.md', dest: 'dist/' }
+            ]
+          })
+    ]
   };

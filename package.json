@@ -2,7 +2,7 @@
   "name": "butter-js",
   "version": "0.0.1",
   "description": "\"Smooth like Buttah\" Momentum Scrolling JavaScript Library",
-  "main": "index.js",
+  "main": "butter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config"
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ragtam/butter.js#readme",
   "devDependencies": {
     "rollup": "^2.52.7",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-terser": "^7.0.2"
   }
 }
