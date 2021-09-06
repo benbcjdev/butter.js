@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 // butter.js
 
 function Butter() {
@@ -115,6 +111,6 @@ Butter.prototype = {
     },
 };
 
-const butter = new Butter();
+var butter = new Butter();
 
-exports.butter = butter;
+export default butter;

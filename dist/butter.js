@@ -1,3 +1,5 @@
+'use strict';
+
 // butter.js
 
 function Butter() {
@@ -111,6 +113,6 @@ Butter.prototype = {
     },
 };
 
-const butter = new Butter();
+var butter = new Butter();
 
-export { butter };
+module.exports = butter;

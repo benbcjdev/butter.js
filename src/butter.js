@@ -112,4 +112,4 @@ Butter.prototype = {
     },
 };
 
-export const butter = new Butter();
+export default new Butter();
