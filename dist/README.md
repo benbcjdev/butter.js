@@ -66,5 +66,3 @@ Call butter.cancel() to restore page to default settings:
 
 ## License
 Free and Open Source under the MIT License.
-
-npm install butter-js --registry http://localhost:4873

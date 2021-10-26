@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="utf-8">
-  <meta name="author" content="BCJ Development">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+    import { onMount } from 'svelte';
+    import butter from 'butter-js';
 
-  <title>Butter.js - Smooth Momentum Scrolling</title>
-  <!-- <script src="https://kit.fontawesome.com/1337a25535.js" crossorigin="anonymous"></script> -->
+	export let name;
 
-  <link rel="stylesheet" href="sample/butter.css">
+    onMount(async () => {
+        butter.init({cancelOnTouch: true});
+	});
+</script>
 
-</head>
-
-<body>
-  <div id="butter">
+<div id="butter">
     <div class="test-div white-div">
       <h1 class="test-heading black-heading">butter.js</h1>
     </div>
@@ -38,10 +34,24 @@
     <div class="test-div black-div">
       <h1 class="test-heading white-heading">butter.js</h1>
     </div>
-  </div>
+ </div>
 
-  <script src="src/butter.js"></script>
-  <script>
-    butter.init({cancelOnTouch: true});
-  </script>
-</body>
+<style>
+	.test-div {
+        position: relative;
+        width: 100%;
+        height: 75vh;
+    }
+    .black-div {
+        background-color: #000000;
+    }
+    .test-heading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+    .white-heading {
+        color: #ffffff;
+    }
+</style>

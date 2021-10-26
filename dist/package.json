@@ -1,0 +1,24 @@
+{
+    "name": "butter-js",
+    "version": "0.0.1",
+    "description": "\"Smooth like Buttah\" Momentum Scrolling JavaScript Library",
+    "main": "butter.js",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ragtam/butter.js.git"
+    },
+    "keywords": [
+      "Momentum",
+      "Scroll",
+      "Scrolling",
+      "Butter",
+      "Butter-js"
+    ],
+    "author": "BCJ Development",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/ragtam/butter.js/issues"
+    },
+    "homepage": "https://github.com/ragtam/butter.js#readme"
+  }
+  
